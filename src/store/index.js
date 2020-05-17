@@ -13,7 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    connected: false,
+    connected: true,
   },
   modules: {
     exchanges,
@@ -35,4 +35,14 @@ export default new Vuex.Store({
       state.update = message
     },
   },
+  actions: {
+    connectSocket({ commit }) {
+      this._vm.$socket.connect();
+      commit('SOCKET_CONNECT');
+    },
+    disconnectSocket({ commit }) {
+      this._vm.$socket.disconnect();
+      commit('SOCKET_DISCONNECT');
+    }
+  }
 });

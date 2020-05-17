@@ -5,7 +5,7 @@
       <div>{{this.stock.company_name}}</div>
       <div>highest: {{this.highest(this.stock)}}</div>
       <div>lowest: {{this.lowest(this.stock)}}</div>
-      <div>last: {{this.stock.values[this.stock.values.length - 1].value}}</div>
+      <div>last: {{this.last(this.stock)}}</div>
       <div>variation: {{this.variation(this.stock)}}%</div>
       <div>transaction volume: {{this.transactionVolume(this.stock)}}</div>
     </div>
@@ -39,6 +39,12 @@ export default {
     },
     lowest(stock) {
       return min(stock.values.map((value) => value.value));
+    },
+    last(stock) {
+      const length = stock.values.length
+      if (length >= 1) {
+        return stock.values[length - 1].value;
+      }
     },
     variation(stock) {
       const length = stock.values.length
