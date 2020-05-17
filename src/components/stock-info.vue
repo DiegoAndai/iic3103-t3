@@ -1,16 +1,33 @@
 <template>
-  <div class="grid grid-cols-2">
-    <stock-chart :chart-data="datacollection" />
+  <div class="grid grid-cols-2 bg-white m-2 p-4 rounded shadow">
     <div>
-      <div>{{this.stock.company_name}}</div>
-      <div>{{this.stock.ticker}}</div>
-      <div>{{this.stock.country}}</div>
-      <div>highest: {{this.highest(this.stock)}}</div>
-      <div>lowest: {{this.lowest(this.stock)}}</div>
-      <div>last: {{this.last(this.stock)}}</div>
-      <div>variation: {{this.variation(this.stock)}}%</div>
-      <div>transaction volume: {{this.transactionVolume(this.stock)}}</div>
+      <div class="text-xl text-gray-900">{{this.stock.company_name}}</div>
+      <div class="text-sm text-gray-600">{{this.stock.ticker}} - {{this.stock.country}}</div>
+      <labeled-value
+        class="pt-8"
+        label="transaction volume"
+        :value="this.transactionVolume(this.stock)"
+      />
+      <div class="grid grid-cols-2 pt-8">
+        <labeled-value
+          label="highest"
+          :value="this.highest(this.stock)"
+        />
+        <labeled-value
+          label="lowest"
+          :value="this.lowest(this.stock)"
+        />
+        <labeled-value
+          label="last"
+          :value="this.last(this.stock)"
+        />
+        <labeled-value
+          label="variation"
+          :value="this.variation(this.stock) | formatPercent"
+        />
+      </div>
     </div>
+    <stock-chart :chart-data="datacollection" />
   </div>
 </template>
 
@@ -19,10 +36,12 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import StockChart from './stock-chart';
+import LabeledValue from './labeled-value';
 
 export default {
   components: {
     StockChart,
+    LabeledValue,
   },
   data() {
     return {
@@ -60,7 +79,7 @@ export default {
       if (length >= 2) {
         const { value: previous} = stock.values[length - 2]
         const { value: last} = stock.values[length - 1]
-        return (last - previous) * 100 / previous;
+        return (last - previous) / previous;
       }
     },
     transactionVolume(stock) {

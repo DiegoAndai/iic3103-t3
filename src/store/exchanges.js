@@ -45,7 +45,7 @@ export const getters = {
     const totalVolume = sum(values(state.exchanges).map(({ exchange_ticker }) => (
       getters.getExchangeTotalVolume(exchange_ticker)
     )))
-    return getters.getExchangeTotalVolume(ticker) * 100 / totalVolume;
+    return getters.getExchangeTotalVolume(ticker) / totalVolume;
   }
 }
 

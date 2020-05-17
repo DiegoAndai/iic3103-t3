@@ -6,6 +6,8 @@ import store from './store';
 import VueSocketIO from 'vue-socket.io'
 import SocketIO from "socket.io-client"
 
+import formatPercent from './filters/formatPercent';
+
 import './assets/styles/index.css';
 
 Vue.config.productionTip = false;
@@ -21,6 +23,8 @@ Vue.use(new VueSocketIO({
   },
   options: { path: "​/stocks" }
 }))
+
+Vue.filter('formatPercent', formatPercent);
 
 new Vue({
   router,
