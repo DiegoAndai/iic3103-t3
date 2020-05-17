@@ -7,6 +7,7 @@ import VueSocketIO from 'vue-socket.io'
 import SocketIO from "socket.io-client"
 
 import formatPercent from './filters/formatPercent';
+import formatVariation from './filters/formatVariation';
 
 import './assets/styles/index.css';
 
@@ -25,6 +26,7 @@ Vue.use(new VueSocketIO({
 }))
 
 Vue.filter('formatPercent', formatPercent);
+Vue.filter('formatVariation', formatVariation);
 
 new Vue({
   router,

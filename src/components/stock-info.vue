@@ -23,7 +23,7 @@
         />
         <labeled-value
           label="variation"
-          :value="this.variation(this.stock) | formatPercent"
+          :value="this.variation(this.stock) | formatVariation"
         />
       </div>
     </div>
