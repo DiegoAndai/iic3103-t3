@@ -21,8 +21,8 @@ export const mutations = {
     }))
     const keyedByName = keyBy(withArrays, (stock) => stock.ticker)
     state.stocks = {
+      ...keyedByName,
       ...state.stocks,
-      ...keyedByName
     };
 
     const name2Ticker = reduce(
@@ -31,8 +31,8 @@ export const mutations = {
       {}
     )
     state.name2TickerMap = {
-      ...state.name2TickerMap,
       ...name2Ticker,
+      ...state.name2TickerMap,
     }
   },
   SOCKET_UPDATE(state, payload) {

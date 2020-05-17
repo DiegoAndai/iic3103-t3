@@ -6,7 +6,10 @@ const initialState = {
 
 export const mutations = {
   SOCKET_EXCHANGES(state, payload) {
-    state.exchanges = payload;
+    state.exchanges = {
+      ...state.exchanges,
+      ...payload,
+    };
   },
 };
 

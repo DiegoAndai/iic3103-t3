@@ -78,6 +78,8 @@ export default {
         this.$store.dispatch('disconnectSocket');
       } else {
         this.$store.dispatch('connectSocket');
+        this.$store.dispatch('triggerExchanges');
+        this.$store.dispatch('triggerStocks');
       }
     }
   }
