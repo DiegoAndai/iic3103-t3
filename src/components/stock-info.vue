@@ -12,14 +12,18 @@
         <labeled-value
           label="highest"
           :value="this.highest(this.stock)"
+          :is-monetary="true"
+          :sufix="this.stock.quote_base"
         />
         <labeled-value
           label="lowest"
           :value="this.lowest(this.stock)"
+          :sufix="this.stock.quote_base"
         />
         <labeled-value
           label="last"
           :value="this.last(this.stock)"
+          :sufix="this.stock.quote_base"
         />
         <labeled-value
           label="variation"
