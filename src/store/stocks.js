@@ -1,4 +1,10 @@
-import { keyBy, reduce } from 'lodash';
+import {
+  keyBy,
+  reduce,
+  max,
+  min,
+  sum
+} from 'lodash';
 
 const initialState = {
   stocks: {},
@@ -70,8 +76,30 @@ export const actions = {
   },
 };
 
+export const getters = {
+  getStock: (state) => (ticker) => {
+    return state.stocks[ticker];
+  },
+  getStockHighest: (_, getters) => (ticker) => {
+    return max(getters.getStock(ticker).values.map((value) => value.value));
+  },
+  getStockLowest: (_, getters) => (ticker) => {
+    return min(getters.getStock(ticker).values.map((value) => value.value));
+  },
+  getStockBuyVolume: (_, getters) => (ticker) => {
+    return sum(getters.getStock(ticker).buys.map((buy) => buy.volume));;
+  },
+  getStockSellVolume: (_, getters) => (ticker) => {
+    return sum(getters.getStock(ticker).sells.map((sell) => sell.volume));;
+  },
+  getStockTotalVolume: (_, getters) => (ticker) => {
+    return getters.getStockBuyVolume(ticker) + getters.getStockSellVolume(ticker);
+  },
+}
+
 export default {
   state: { ...initialState },
   mutations,
   actions,
+  getters,
 };

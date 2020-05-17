@@ -3,6 +3,8 @@
     <stock-chart :chart-data="datacollection" />
     <div>
       <div>{{this.stock.company_name}}</div>
+      <div>{{this.stock.ticker}}</div>
+      <div>{{this.stock.country}}</div>
       <div>highest: {{this.highest(this.stock)}}</div>
       <div>lowest: {{this.lowest(this.stock)}}</div>
       <div>last: {{this.last(this.stock)}}</div>
@@ -14,7 +16,7 @@
 
 <script>
 import moment from 'moment';
-import { max, min, sum } from 'lodash';
+import { mapGetters } from 'vuex';
 
 import StockChart from './stock-chart';
 
@@ -33,12 +35,19 @@ export default {
       required: true,
     }
   },
+  computed: {
+    ...mapGetters([
+      'getStockHighest',
+      'getStockLowest',
+      'getStockTotalVolume',
+    ])
+  },
   methods: {
     highest(stock) {
-      return max(stock.values.map((value) => value.value));
+      return this.getStockHighest(stock.ticker);
     },
     lowest(stock) {
-      return min(stock.values.map((value) => value.value));
+      return this.getStockLowest(stock.ticker);
     },
     last(stock) {
       const length = stock.values.length
@@ -55,9 +64,7 @@ export default {
       }
     },
     transactionVolume(stock) {
-      const bought = sum(stock.buys.map((buy) => buy.volume));
-      const sold = sum(stock.sells.map((sell) => sell.volume));
-      return bought + sold;
+      return this.getStockTotalVolume(stock.ticker);
     }
   },
   watch: {

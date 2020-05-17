@@ -8,8 +8,13 @@
     >
       {{this.$store.state.connected ? 'disconnect' : 'connect'}}
     </button>
+    <div>Stocks</div>
     <div v-for="stock in stocks" :key="stock.ticker">
       <stock-info :stock="stock" />
+    </div>
+    <div>Exchanges</div>
+    <div v-for="exchange in exchanges" :key="exchange.exchange_ticker">
+      <exchange-info :exchange="exchange" />
     </div>
     <router-view/>
   </div>
@@ -20,10 +25,12 @@ import moment from 'moment';
 import values from 'lodash/values';
 
 import StockInfo from './components/stock-info';
+import ExchangeInfo from './components/exchange-info';
 
 export default {
   components: {
     StockInfo,
+    ExchangeInfo,
   },
   created() {
     this.$store.dispatch('triggerExchanges');
@@ -32,6 +39,9 @@ export default {
   computed: {
     stocks() {
       return values(this.$store.state.stocks.stocks);
+    },
+    exchanges() {
+      return values(this.$store.state.exchanges.exchanges);
     }
   },
   methods: {
