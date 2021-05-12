@@ -10,7 +10,7 @@
   "dependencies": {
     "autoprefixer": "^9.7.5",
     "axios": "^0.19.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
     "moment": "^2.25.3",
